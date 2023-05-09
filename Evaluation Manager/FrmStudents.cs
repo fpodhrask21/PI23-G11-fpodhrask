@@ -1,4 +1,5 @@
-﻿using Evaluation_Manager.Repositories;
+﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +33,21 @@ namespace Evaluation_Manager
             dgvStudents.Columns["FirstName"].DisplayIndex = 1;
             dgvStudents.Columns["LastName"].DisplayIndex = 2;
             dgvStudents.Columns["Grade"].DisplayIndex = 3;
+        }
+
+        private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnEvaluate_Click(object sender, EventArgs e)
+        {
+            Student selectedStudent = dgvStudents.CurrentRow.DataBoundItem as Student;
+            if (selectedStudent != null) 
+            {
+                Form1 form1 = new Form1(selectedStudent);
+                form1.ShowDialog();
+            }
         }
     }
 }
