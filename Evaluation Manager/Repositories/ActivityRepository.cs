@@ -14,12 +14,11 @@ namespace Evaluation_Manager.Repositories
         public static Activity GetActivity(int id)
         {
             Activity activity = null;
-
             string sql = $"SELECT * FROM Activities WHERE Id = {id}";
             DB.OpenConnection();
-            var reader = DB.GetDataReader(sql);
 
-            if (reader.HasRows)
+            var reader = DB.GetDataReader(sql);
+            if(reader.HasRows)
             {
                 reader.Read();
                 activity = CreateObject(reader);
@@ -27,8 +26,6 @@ namespace Evaluation_Manager.Repositories
             }
 
             DB.CloseConnection();
-
-
             return activity;
         }
 
@@ -38,16 +35,13 @@ namespace Evaluation_Manager.Repositories
             string sql = "SELECT * FROM Activities";
             DB.OpenConnection();
             var reader = DB.GetDataReader(sql);
-
             while (reader.Read())
             {
                 Activity activity = CreateObject(reader);
                 activities.Add(activity);
             }
-
             reader.Close();
             DB.CloseConnection();
-
             return activities;
         }
 
@@ -56,11 +50,11 @@ namespace Evaluation_Manager.Repositories
             int id = int.Parse(reader["Id"].ToString());
             string name = reader["Name"].ToString();
             string description = reader["Description"].ToString();
-            int maxPoints = int.Parse(reader["MaxPoints"].ToString()); 
+            int maxPoints = int.Parse(reader["MaxPoints"].ToString());
             int minPointsForGrade = int.Parse(reader["MinPointsForGrade"].ToString());
-            int minPointsForSignature = int.Parse(reader["MinPointsForSignature"].ToString()) ;
+            int minPointsForSignature = int.Parse(reader["MinPointsForSignature"].ToString());
 
-            var activity = new Activity()
+            var activity = new Activity
             {
                 Id = id,
                 Name = name,

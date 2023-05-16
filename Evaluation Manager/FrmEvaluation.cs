@@ -1,4 +1,5 @@
 ﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,31 +10,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Evaluation_Manager.Repositories
+namespace Evaluation_Manager
 {
-    public partial class Form1 : Form
+    public partial class FrmEvaluation : Form
     {
         private Student student;
-        public Form1(Student selctedStudent)
+        public FrmEvaluation(Student selectedStudent)
         {
             InitializeComponent();
+            student = selectedStudent;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void FrmEvaluation_Load(object sender, EventArgs e)
         {
             SetFormText();
-            var acticities = ActivityRepository.GetActivities();
-            cboActivities.DataSource = acticities;
+            var activities = ActivityRepository.GetActivities();
+            cboActivities.DataSource = activities;
         }
 
         private void SetFormText()
         {
-            Text = student.ToString();
+            Text = student.FirstName + " " + student.LastName;
         }
 
         private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,8 +39,13 @@ namespace Evaluation_Manager.Repositories
             txtActivityDescription.Text = currentActivity.Description;
             txtMinForGrade.Text = currentActivity.MinPointsForGrade + "/" + currentActivity.MaxPoints;
             txtMinForSignature.Text = currentActivity.MinPointsForSignature + "/" + currentActivity.MaxPoints;
-        
-            
+            numPoints.Minimum = 0;
+            numPoints.Maximum = currentActivity.MaxPoints;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

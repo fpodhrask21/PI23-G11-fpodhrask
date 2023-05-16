@@ -14,6 +14,7 @@ namespace Evaluation_Manager.Models
         public int MaxPoints { get; set; }
         public int MinPointsForGrade { get; set; }
         public int MinPointsForSignature { get; set; }
+
         public override string ToString()
         {
             return Name;
